@@ -1,0 +1,1 @@
+https://hidevidc.service-now.com/sys_user_group_list.do?sysparm_target=rm_story.assignment_group&sysparm_target_value=037fffabd0bbf53801a01add6c08e32b&sysparm_nameofstack=reflist&sysparm_clear_stack=true&sysparm_element=assignment_group&sysparm_reference=sys_user_group&sysparm_view=sys_ref_list&sysparm_additional_qual=&sysparm_domain_restore=false

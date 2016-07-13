@@ -1,0 +1,34 @@
+<ion-view>
+    <ion-content>
+<ng-form id="volunteer" >
+                <h3>Please fill following details to volunteer</h3>
+                <div class="form-group">
+                    <label> Select a date: </label>
+                    <input ng-model="vmodel.date" type="date" ></input>          
+                  </div>
+                  <div class="form-group">
+                     <label> Select Time Slots</label>
+                     <select ng-model="vmodel.selectedTimeSlot" name="selectedTimeSlot" class="form-control">
+                        <option value="10:00 - 13:00" selected>10:00 - 13:00</option>
+                        <option value="13:00 - 16:00">13:00 - 16:00</option>
+                        <option value="16:00 - 19:00">16:00 - 19:00</option>
+                        <option value="19:00 - 22:00">19:00 - 22:00</option>
+                     </select>
+                  </div>
+             
+                <div class="form-group">
+                    <label> Radius that you can cover(in km)</label>
+                  <button class="btn" ng-click="subtractRadius()">-</button> 
+                  <input text="number" ng-model="vmodel.radius" name="radius" style="width:40px"></input>
+                  <button class="btn" ng-click="addRadius()">+</button>
+                </div> 
+    <button ng-click="showCloseLocations()">Show Locations In Radius</button>
+    <div class="item item-input controls">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input id="pac-input"  type="text" placeholder="Enter your location" data-tap-disabled="true" ng-focus="disableTap()" ng-model="search">
+            </div>
+            <div id="map" ></div>
+     
+</ng-form>
+</ion-view>
+    </ion-content>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+<meta charset="UTF-8">
+<title>Select Seeker(s) and Provider</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller('myController', myControllers);
+    
+    function myControllers($scope,$http,$location) {
+
+
+          $scope.seekers = [];
+          $scope.providers = []; 
+
+        var url = '/prov_seeker_list?id=' + $location.absUrl().substring($location.absUrl().indexOf('id=')+"id=".length);
+        console.log("URL : " + url);
+            $http.get(url).then(function(arr){
+              console.log('Arr is ' + JSON.stringify(arr));
+              $scope.seekers = arr.data.seekers;
+              $scope.providers = arr.data.providers;
+           });
+    }
+    
+</script>
+</head>
+<body>
+     <div class="page-header">
+             <img src="connectdneedy.png" style="width:100%;"></img>
+         </div>
+<div style="margin: 20px;" ng-controller="myController">
+   <h3 style="text-align:center">Please Select Seeker(s) and Provider(s) to proceed</h3>
+   <form id="login" action="addSeekerProvider" method="post">
+       <div class="row">
+       <div class="col col-md-6">
+           <h4 style="text-align:center">List of Seekers</h4>
+           <table class="table table-striped">
+               <thead>
+                   <td>&nbsp;</td>
+                   <td>Seeker Name</td>
+                   <td>Address</td>
+                   <td>Seeker distance</td>
+                   <td>Seeking for</td>
+                   
+               </thead>
+               <tbody>
+                   <tr ng-repeat="seeker in seekers">
+                        <td><input type="radio" name="select-seeker"/></td>
+                        <td>{{seeker.name}}</td>
+                        <td>{{seeker.location}}</td>
+                        <td>{{seeker.distance}}</td>
+                        <td>{{seeker.peopleCount}}</td>
+                    </tr>
+               </tbody>
+               
+           </table>
+        </div>
+       <div class="col col-md-6">
+           <h4 style="text-align:center">List of Providers</h4>
+           <table class="table table-striped">
+               <thead>
+                   <td>Select</td>
+                   <td>Provider Name</td>
+                   <td>Address</td>
+                   <td>Provider distance</td>
+                   <td>Providing for</td>
+                   
+               </thead>
+               <tbody>
+                   <tr ng-repeat="seeker in seekers">
+                        <td><input type="radio" data-seek="seeker" name="select-provider"/></td>
+                        <td>{{seeker.name}}</td>
+                        <td>{{seeker.location}}</td>
+                        <td>{{seeker.distance}}</td>
+                        <td>{{seeker.peopleCount}}</td>
+                    </tr>
+               </tbody>
+               
+           </table>
+        </div>
+        </div>
+       <button type="submit" class="btn btn-primary">Submit</button>
+   </form>
+</div>
+</body>
+    <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                     <img src="footer.png" style="width:100%;"></img>
+</div>
+
+</html> 

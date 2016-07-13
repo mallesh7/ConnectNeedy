@@ -1,0 +1,61 @@
+<ion-view>
+    <ion-content>
+        <ng-form id="provider" >
+                  <div class="form-group">
+                     <label> I am looking for: </label>
+                     <select ng-model="model.selectedItem" class = "form-control">
+                        
+                        <option value="Food">Food</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Toys">Toys</option>
+                        <option value="Vegetables">Vegetables</option>
+                     </select>
+                  </div>
+                  <!--div class="form-group">
+                     <label for="datetimepicker"> Comfortable Date</label>
+                     <div id="datetimepicker" class="input-append date">
+                        <input type="text" ng-model="date" style="height:30px;"></input>
+                        <span class="add-on" style="height:30px;">
+                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                        </span>
+                     </div>
+                  </div-->
+            <!-- ngCordova Date Picker -->
+            <div>
+            <label> Select a date: </label>
+            <input ng-model="model.date" type="date" ></input>
+            </div>
+           
+            <!-- Date picker end-->
+                  <div class="form-group">
+                     <label> Select Time Slots</label>
+                     <select ng-model="model.selectedTimeSlot" class="form-control">
+                        <option value="10:00 - 13:00" selected="selected">10:00 - 13:00</option>
+                        <option value="13:00 - 16:00">13:00 - 16:00</option>
+                        <option value="16:00 - 19:00">16:00 - 19:00</option>
+                        <option value="19:00 - 22:00">19:00 - 22:00</option>
+                     </select>
+                  </div>
+                  <div ng-show="model.selectedItem == 'Food' || model.selectedItem == 'Vegetables'" class="form-group">
+                     <label> For how many people</label>
+                     <button class="btn" ng-click="subtractPeople()">-</button>
+                     <input text="number" ng-model="model.peopleCount" style="width:40px"></input>    
+                     <button class="btn" ng-click="addPeople()">+</button>
+                  </div>
+                  <div ng-show="model.selectedItem == 'Toys' || model.selectedItem == 'Clothing'" class="form-group">
+                     
+                     <label> Number of Items</label>
+                     <button class="btn" ng-click="subtractItem()">-</button> 
+                     <input text="number" ng-model="model.itemCount" style="width:40px"></input>
+                     <button class="btn" ng-click="addItem()">+</button>
+                  </div>
+            
+    <div class="item item-input controls">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input id="pac-input"  type="text" placeholder="Enter your location" data-tap-disabled="true" ng-focus="disableTap()" ng-model="search">
+            </div>
+            <div id="map" ></div>
+   <button  class="btn btn-primary" type="button" ng-click="saveRec('seeker')"> Submit </button>
+</ng-form>
+</ion-view>
+    </ion-content>

@@ -1,0 +1,94 @@
+<html ng-app = "needyapp">
+   <head>
+      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <link rel="stylesheet" href="CSS/styles.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   </head>
+   <style>
+      .container {
+      background: white;
+      margin: 0 auto;
+      padding:50px;
+      border:500px;
+      }
+      .modal{
+      left:50% !important;
+      bottom:73% !important;
+      width:610px !important;
+      }
+   </style>
+   <body ng-controller="needyController">
+        <div class="page-header">
+             <img src="connectdneedy.png" style="width:100%;"></img>
+         </div>
+      <form class="container" id="myForm">
+         <h3 style="text-align:center">Please Select the Provider to connect</h3>
+         <table class="table table-bordered ">
+            <tr>
+               <td><strong>Provider</strong></td>
+               <td><strong>Distance</strong></td>
+               <td><strong>Place</strong></td>
+               <td><strong>FoodProvided</strong></td>
+               <td><strong>Select</strong></td>
+            </tr>
+            <tr ng-repeat="item in arrObj track by $index">
+               <td>{{item.provider}}</td>
+               <td>{{item.distance}}</td>
+               <td>{{item.place}}</td>
+               <td>{{item.foodProvided}}</td>
+               <td><input type="checkbox" id="{{item.provider}}" ng-model="check"></input></td>
+            </tr>
+         </table>
+         <script>
+            var app = angular.module('needyapp',[]);
+            app.controller('needyController',['$scope','$http','$location',function($scope,$http,$location){
+             console.log('Complete URL is ' + $location.absUrl().substring($location.absUrl().indexOf('id=')+"id=".length));
+            
+             $scope.arrObj = [];  
+            $scope.check=[];
+            $scope.checked=function(){
+            $scope.check = !$scope.check;
+                console.log('checked is ' + $scope.check);
+            };
+                
+                $scope.submit = function(){
+                    var arr = [];
+             $('input:checked').each(function(){
+                 arr.push(this.id);
+             });
+                    $scope.message = 'You have been connected with ' + arr.join(' and ');
+             };
+             var url = '/providers_list?id=' + $location.absUrl().substring($location.absUrl().indexOf('id=')+"id=".length);
+             console.log("URL : " + url);
+                 $http.get(url).then(function(arr){
+                   console.log('Arr is ' + JSON.stringify(arr));
+                   $scope.arrObj = arr.data;
+                   console.log("$scope.arrObj : " + JSON.stringify($scope.arrObj));
+                });
+            
+            }]);
+         </script>
+         <button class="btn btn-info" ng-click="submit()" data-target="#myModal" data-toggle="modal"> Submit</button>
+         <!-- Modal -->
+
+<div id="myModal" role="dialog" class="modal">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal">&times;</button>
+<h4 class="modal-title">Yippeeyy!!! You are connected</h4>
+</div>
+<div class="modal-body">
+<p>{{message}}</p>
+</div>
+</div>
+
+      </form>
+   </body>
+<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                     <img src="footer.png" style="width:100%;"></img>
+</div>
+
+</html>
